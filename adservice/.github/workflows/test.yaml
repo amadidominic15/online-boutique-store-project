@@ -1,0 +1,12 @@
+name: Simple Hello World Workflow
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Say Hello
+        run: echo "Hello from GitHub Actions!"
