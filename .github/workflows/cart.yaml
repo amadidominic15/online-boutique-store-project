@@ -15,5 +15,6 @@ jobs:
       dockerfile_path: cartservice/Dockerfile
       context_path: cartservice
       tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
     secrets:
       GHCR_TOKEN: ${{ secrets.TOKEN }}

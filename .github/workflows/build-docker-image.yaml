@@ -22,6 +22,11 @@ on:
         required: false
         default: 'latest'
         type: string
+      trivy_severity:
+        description: 'Trivy vulnerability severity levels to report'
+        required: false
+        default: 'CRITICAL,HIGH'
+        type: string
     secrets:
       GHCR_TOKEN:
         description: 'GitHub Personal Access Token with write:packages scope'
@@ -53,10 +58,10 @@ jobs:
           push: true 
           tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.run_id }}
 
-        name: Run Trivy scan
+      - name: Run Trivy scan
         uses: aquasecurity/trivy-action@master
         with:
           image-ref: "${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.run_id }}"
           format: "sarif" 
-          severity: "CRITICAL,HIGH"
+          severity: ${{ inputs.trivy_severity }}
           exit-code: 0
