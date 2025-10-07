@@ -1,0 +1,27 @@
+name: BUILD PUSH SCAN AND UPDATE IMAGE FOR CURRENCY SERVICE
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'currencyservice/**'
+      - '.github/workflows/currency.yaml'
+jobs:
+  call-build-push-and-scan-cartservice-image:
+    uses: ./.github/workflows/build-docker-image.yaml
+    with:
+      image_name: cart
+      dockerfile_path: currencyservice/Dockerfile
+      context_path: currencyservice
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}
+
+  echo-job:
+    runs-on: ubuntu-latest
+    needs: call-build-push-and-scan-cartservice-image
+    steps:
+      - name: Echo job completion
+        run: echo "Build, push, and scan for currency service completed."
