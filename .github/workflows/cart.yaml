@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-
+    paths:
+      - 'cartservice/**'
+      - '.github/workflows/cart.yaml'
 jobs:
   call-build-push-and-scan-cartservice-image:
     uses: ./.github/workflows/build-docker-image.yaml
