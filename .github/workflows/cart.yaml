@@ -1,0 +1,17 @@
+name: BUILD PUSH SCAN AND UPDATE IMAGE FOR CART SERVICE
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  call-build-push-and-scan-cartservice-image:
+    uses: ./.github/workflows/build-docker-image.yaml
+    with:
+      image_name: cart
+      dockerfile_path: cartservice/Dockerfile
+      context_path: cartservice
+      tag: ${{ github.run_id }}
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}
