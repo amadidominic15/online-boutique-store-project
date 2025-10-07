@@ -33,20 +33,16 @@ jobs:
       uses: docker/build-push-action@v6
       with:
         context: checkoutservice
-        file: checkoutservice/Dockerfile
         push: true
-        tags: ${{ env.REGISTRY }}/${{ github.repository }}/ads:${{ github.run_id }}
+        tags: ${{ env.REGISTRY }}/${{ github.actor }}/checkout:${{ github.run_id }}
 
     - name: Run Trivy scan
       uses: aquasecurity/trivy-action@master
       with:
-        image-ref: "${{ env.REGISTRY }}/${{ github.repository }}/ads:${{ github.run_id }}"
-        format: "sarif"
-        security-checks: "vuln,config,secret"
-        exit-code: 0
-        output: "trivy-report.sarif"
-        ignore-unfixed: true
+        image-ref: "${{ env.REGISTRY }}/${{ github.actor }}/checkout:${{ github.run_id }}"
+        format: "sarif" 
         severity: "CRITICAL,HIGH"
+        exit-code: 0
 
   # update-tag-in-helm-chart:
   #   runs-on: ubuntu-latest
