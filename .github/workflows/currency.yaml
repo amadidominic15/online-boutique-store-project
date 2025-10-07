@@ -11,7 +11,7 @@ jobs:
   call-build-push-and-scan-cartservice-image:
     uses: ./.github/workflows/build-docker-image.yaml
     with:
-      image_name: cart
+      image_name: currency
       dockerfile_path: currencyservice/Dockerfile
       context_path: currencyservice
       tag: ${{ github.run_id }}

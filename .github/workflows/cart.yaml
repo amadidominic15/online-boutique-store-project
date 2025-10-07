@@ -12,8 +12,8 @@ jobs:
     uses: ./.github/workflows/build-docker-image.yaml
     with:
       image_name: cart
-      dockerfile_path: cartservice/Dockerfile
-      context_path: cartservice
+      dockerfile_path: cartservice/src/Dockerfile
+      context_path: cartservice/src
       tag: ${{ github.run_id }}
       trivy_severity: 'CRITICAL,HIGH'
     secrets:
