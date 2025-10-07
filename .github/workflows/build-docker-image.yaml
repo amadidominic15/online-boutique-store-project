@@ -56,12 +56,12 @@ jobs:
           context: ${{ inputs.context_path }}
           file: ${{ inputs.dockerfile_path }}
           push: true 
-          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.run_id }}
+          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.tag }}
 
       - name: Run Trivy scan
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.run_id }}"
+          image-ref: "${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.tag }}"
           format: "sarif" 
           severity: ${{ inputs.trivy_severity }}
           exit-code: 0
