@@ -1,10 +1,6 @@
 name: Build and Push Docker Images
 
 on:
-env:
-  REGISTRY: ghcr.io
-  image: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}
-
   workflow_call:
     inputs:
       image_name:
@@ -34,12 +30,13 @@ env:
     secrets:
       GHCR_TOKEN:
         description: 'GitHub Personal Access Token with write:packages scope'
-        required: true
-      
+        required: true     
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    env:
+      REGISTRY: ghcr.io
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -89,5 +86,5 @@ jobs:
     - name: Commit and push changes
       run: |
         git add helm/microservices-chart/values.yaml
-        git commit -m "Update tag in Helm chart for ${{ env.image }} to ${{ inputs.tag }}"
+        git commit -m "Update tag in Helm chart for ${{ inputs.image_name }} to ${{ inputs.tag }}"
         git push
