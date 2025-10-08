@@ -6,8 +6,8 @@ global:
 services:
   adservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-javacode/adservice
-      tag: "bbe34b04"
+      repository: ghcr.io/amadidominic15/ad
+      tag: "latest"
     port: 9555
     resources:
       requests:
@@ -18,8 +18,8 @@ services:
         memory: 300Mi
   cartservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-cartservice/cartservice
-      tag: "8087539b"
+      repository: ghcr.io/amadidominic15/cart
+      tag: "latest"
     port: 7070
     resources:
       requests:
@@ -30,8 +30,8 @@ services:
         memory: 128Mi
   checkoutservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-checkoutservice/checkoutservice
-      tag: "25f72e28"
+      repository: ghcr.io/amadidominic15/checkout
+      tag: "latest"
     port: 5050
     resources:
       requests:
@@ -42,8 +42,8 @@ services:
         memory: 128Mi
   currencyservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-currencyservice/currencyservice
-      tag: "89d6f18c"
+      repository: ghcr.io/amadidominic15/currency
+      tag: "latest"
     port: 7000
     resources:
       requests:
@@ -54,8 +54,8 @@ services:
         memory: 128Mi
   emailservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-emailservice/emailservice
-      tag: "fed80416"
+      repository: ghcr.io/amadidominic15/email
+      tag: "latest"
     port: 8080
     servicePort: 5000
     resources:
@@ -67,8 +67,8 @@ services:
         memory: 128Mi
   frontend:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-frontend/frontend
-      tag: "0ada6df3"
+      repository: ghcr.io/amadidominic15/frontend
+      tag: "latest"
     port: 8080
     serviceType: ClusterIP
     resources:
@@ -80,8 +80,8 @@ services:
         memory: 128Mi
   loadgenerator:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-loadgenerator/loadgenerator
-      tag: "fabd1cf7"
+      repository: ghcr.io/amadidominic15/loadgenerator
+      tag: "latest"
     replicas: 1
     users: "10"
     rate: "1"
@@ -94,8 +94,8 @@ services:
         memory: 512Mi
   paymentservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-paymentservice/paymentservice
-      tag: "8ae99fb2"
+      repository: ghcr.io/amadidominic15/payment
+      tag: "latest"
     port: 50051
     resources:
       requests:
@@ -106,8 +106,8 @@ services:
         memory: 128Mi
   productcatalogservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-productcatalogservice/productcatalogservice
-      tag: "9f82850e"
+      repository: ghcr.io/amadidominic15/productcatalog
+      tag: "latest"
     port: 3550
     resources:
       requests:
@@ -118,8 +118,8 @@ services:
         memory: 128Mi
   recommendationservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-recommendationservice/recommendationservice
-      tag: "5915f761"
+      repository: ghcr.io/amadidominic15/recommendation
+      tag: "latest"
     port: 8080
     resources:
       requests:
@@ -130,8 +130,8 @@ services:
         memory: 450Mi
   shippingservice:
     image:
-      repository: registry.gitlab.com/seunayolu/gitops-shippingservice/shippingservice
-      tag: "e10f1908"
+      repository: ghcr.io/amadidominic15/shipping
+      tag: "latest"
     port: 50051
     resources:
       requests:

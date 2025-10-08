@@ -7,6 +7,7 @@ on:
     paths:
       - 'adservice/**'
       - '.github/workflows/ad.yaml'
+      - 'helm/microservices-chart/values.yaml'
 jobs:
   call-build-push-and-scan-cartservice-image:
     uses: ./.github/workflows/build-docker-image.yaml
