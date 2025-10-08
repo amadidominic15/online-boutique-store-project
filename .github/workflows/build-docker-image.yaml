@@ -76,7 +76,7 @@ jobs:
 
     - name: Update tag in Helm chart
       run: |
-          sed -i "/repository: ${{ env.REGISTRY }}\/${{ github.actor }}\/${{ inputs.image_name }}/{n;s/tag:.*/tag: ${{ inputs.tag }}/;}" helm/microservices-chart/values.yaml
+          sed -i "/repository: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}/{n;s/tag:.*/tag: ${{ inputs.tag }}/;}" helm/microservices-chart/values.yaml
 
     - name: login to github
       run: |
