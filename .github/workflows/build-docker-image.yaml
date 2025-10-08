@@ -1,6 +1,10 @@
 name: Build and Push Docker Images
 
 on:
+env:
+  REGISTRY: ghcr.io
+  image: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}
+
   workflow_call:
     inputs:
       image_name:
@@ -36,9 +40,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    env:
-      REGISTRY: ghcr.io
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -68,7 +69,6 @@ jobs:
 
   update-tag-in-helm-chart:
     runs-on: ubuntu-latest
-
     needs: build-and-push
 
     steps:
@@ -79,12 +79,7 @@ jobs:
 
     - name: Update tag in Helm chart
       run: |
-          IFS=',' read -r -a images <<< "${{ inputs.image_name }}"
-          IFS=',' read -r -a tags <<< "${{ inputs.tag }}"
-          
-          for i in "${!images[@]}"; do
-            sed -i "s|${images[i]}:.*|${images[i]}: ${tags[i]}|g" helm/microservices-chart/values.yaml
-          done
+          sed -i "/repository: ${{ env.REGISTRY }}\/${{ github.actor }}\/${{ inputs.image_name }}/{n;s/tag:.*/tag: ${{ inputs.tag }}/;}" helm/microservices-chart/values.yaml
 
     - name: login to github
       run: |
@@ -92,8 +87,6 @@ jobs:
          git config --global user.name "amadidominic15"
 
     - name: Commit and push changes
-      env: 
-        image: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}
       run: |
         git add helm/microservices-chart/values.yaml
         git commit -m "Update tag in Helm chart for ${{ env.image }} to ${{ inputs.tag }}"
