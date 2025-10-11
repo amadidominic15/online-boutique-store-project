@@ -169,8 +169,4 @@ ingress:
   listenPorts: '[{"HTTP": 80}, {"HTTPS": 443}]'
   sslRedirect: "443"
   groupName: online-boutique
-  host: gcp.online-boutique.com
-adservice:
-  tag: "18435322516"
-  image:
-    tag: "18435390854"
+  host: www.online-boutique.com
