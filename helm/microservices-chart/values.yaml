@@ -2,7 +2,7 @@ services:
   adservice:
     image:
       repository: ghcr.io/amadidominic15/ad
-      tag: "latest"
+      tag: "18435458013"
     port: 9555
     resources:
       requests:
