@@ -1,7 +1,7 @@
 services:
   adservice:
     image:
-      repository: ghcr.io/amadidominic15/ad
+      repository: ghcr.io/amadidominic15/adservice
       tag: "18435534623"
     port: 9555
     resources:
@@ -13,7 +13,7 @@ services:
         memory: 300Mi
   cartservice:
     image:
-      repository: ghcr.io/amadidominic15/cart
+      repository: ghcr.io/amadidominic15/cartservice
       tag: "latest"
     port: 7070
     resources:
@@ -25,7 +25,7 @@ services:
         memory: 128Mi
   checkoutservice:
     image:
-      repository: ghcr.io/amadidominic15/checkout
+      repository: ghcr.io/amadidominic15/checkoutservice
       tag: "latest"
     port: 5050
     resources:
@@ -37,7 +37,7 @@ services:
         memory: 128Mi
   currencyservice:
     image:
-      repository: ghcr.io/amadidominic15/currency
+      repository: ghcr.io/amadidominic15/currencyservice
       tag: "latest"
     port: 7000
     resources:
@@ -49,7 +49,7 @@ services:
         memory: 128Mi
   emailservice:
     image:
-      repository: ghcr.io/amadidominic15/email
+      repository: ghcr.io/amadidominic15/emailservice
       tag: "latest"
     port: 8080
     servicePort: 5000
@@ -62,7 +62,7 @@ services:
         memory: 128Mi
   frontend:
     image:
-      repository: ghcr.io/amadidominic15/frontend
+      repository: ghcr.io/amadidominic15/frontendservice
       tag: "latest"
     port: 8080
     serviceType: ClusterIP
@@ -75,7 +75,7 @@ services:
         memory: 128Mi
   loadgenerator:
     image:
-      repository: ghcr.io/amadidominic15/loadgenerator
+      repository: ghcr.io/amadidominic15/loadgeneratorservice
       tag: "latest"
     replicas: 1
     users: "10"
@@ -89,7 +89,7 @@ services:
         memory: 512Mi
   paymentservice:
     image:
-      repository: ghcr.io/amadidominic15/payment
+      repository: ghcr.io/amadidominic15/paymentservice
       tag: "latest"
     port: 50051
     resources:
@@ -101,7 +101,7 @@ services:
         memory: 128Mi
   productcatalogservice:
     image:
-      repository: ghcr.io/amadidominic15/productcatalog
+      repository: ghcr.io/amadidominic15/productcatalogservice
       tag: "latest"
     port: 3550
     resources:
@@ -113,7 +113,7 @@ services:
         memory: 128Mi
   recommendationservice:
     image:
-      repository: ghcr.io/amadidominic15/recommendation
+      repository: ghcr.io/amadidominic15/recommendationservice
       tag: "latest"
     port: 8080
     resources:
@@ -125,7 +125,7 @@ services:
         memory: 450Mi
   shippingservice:
     image:
-      repository: ghcr.io/amadidominic15/shipping
+      repository: ghcr.io/amadidominic15/shippingservice
       tag: "latest"
     port: 50051
     resources:
@@ -135,9 +135,6 @@ services:
       limits:
         cpu: 200m
         memory: 128Mi
-  ad:
-    image:
-      tag: "18435694056"
 redis:
   image: redis:alpine
   port: 6379
