@@ -135,6 +135,9 @@ services:
       limits:
         cpu: 200m
         memory: 128Mi
+  ad:
+    image:
+      tag: "18435694056"
 redis:
   image: redis:alpine
   port: 6379
