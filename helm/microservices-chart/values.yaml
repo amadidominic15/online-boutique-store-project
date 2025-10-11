@@ -2,7 +2,6 @@ services:
   adservice:
     image:
       repository: ghcr.io/amadidominic15/ad
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 9555
     resources:
@@ -15,7 +14,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   cartservice:
     image:
       repository: ghcr.io/amadidominic15/cart
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 7070
     resources:
@@ -28,7 +26,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   checkoutservice:
     image:
       repository: ghcr.io/amadidominic15/checkout
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 5050
     resources:
@@ -41,7 +38,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   currencyservice:
     image:
       repository: ghcr.io/amadidominic15/currency
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 7000
     resources:
@@ -54,7 +50,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   emailservice:
     image:
       repository: ghcr.io/amadidominic15/email
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 8080
     servicePort: 5000
@@ -68,7 +63,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   frontend:
     image:
       repository: ghcr.io/amadidominic15/frontend
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 8080
     serviceType: ClusterIP
@@ -82,7 +76,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   loadgenerator:
     image:
       repository: ghcr.io/amadidominic15/loadgenerator
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     replicas: 1
     users: "10"
@@ -97,7 +90,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   paymentservice:
     image:
       repository: ghcr.io/amadidominic15/payment
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 50051
     resources:
@@ -110,7 +102,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   productcatalogservice:
     image:
       repository: ghcr.io/amadidominic15/productcatalog
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 3550
     resources:
@@ -123,7 +114,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   recommendationservice:
     image:
       repository: ghcr.io/amadidominic15/recommendation
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 8080
     resources:
@@ -136,7 +126,6 @@ madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
   shippingservice:
     image:
       repository: ghcr.io/amadidominic15/shipping
-madidominic15/ad/{n;s/tag:.*/tag: 18358525053/;}
       tag: "latest"
     port: 50051
     resources:
@@ -180,4 +169,4 @@ ingress:
   listenPorts: '[{"HTTP": 80}, {"HTTPS": 443}]'
   sslRedirect: "443"
   groupName: online-boutique
-  host: online-boutique.teachdev.online
+  host: www.online-boutique.com
