@@ -1,8 +1,7 @@
 services:
   adservice:
     image:
-      repository: ghcr.io/amadidominic15/ad
-madidominic15/ad/{n;s/tag:.*/tag: "18432088017"/;}
+      repository: ghcr.io/amadidominic15/adservice
       tag: "latest"
     port: 9555
     resources:
@@ -14,8 +13,7 @@ madidominic15/ad/{n;s/tag:.*/tag: "18432088017"/;}
         memory: 300Mi
   cartservice:
     image:
-      repository: ghcr.io/amadidominic15/cart
-madidominic15/ad/{n;s/tag:.*/tag: "18432088017"/;}
+      repository: ghcr.io/amadidominic15/cartservice
       tag: "latest"
     port: 7070
     resources:
