@@ -170,3 +170,5 @@ ingress:
   sslRedirect: "443"
   groupName: online-boutique
   host: gcp.online-boutique.com
+adservice:
+  tag: "18435322516"
