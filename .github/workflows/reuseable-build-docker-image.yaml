@@ -1,0 +1,90 @@
+name: Build and Push Docker Images
+
+on:
+  workflow_call:
+    inputs:
+      image_name:
+        description: 'Name of the Docker image'
+        required: true
+        type: string
+      dockerfile_path:
+        description: 'Path to the Dockerfile'
+        required: false
+        default: './Dockerfile'
+        type: string
+      context_path:
+        description: 'Build context path'
+        required: false
+        default: '.'
+        type: string
+      tag:
+        description: 'Docker image tag'
+        required: false
+        default: 'latest'
+        type: string
+      trivy_severity:
+        description: 'Trivy vulnerability severity levels to report'
+        required: false
+        default: 'CRITICAL,HIGH'
+        type: string
+    secrets:
+      GHCR_TOKEN:
+        description: 'GitHub Personal Access Token with write:packages scope'
+        required: true     
+
+jobs:
+  build-and-push-docker-images:
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY: ghcr.io
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ${{ inputs.context_path }}
+          file: ${{ inputs.dockerfile_path }}
+          push: true 
+          tags: ${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.tag }}
+
+      - name: Run Trivy scan
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "${{ env.REGISTRY }}/${{ github.actor }}/${{ inputs.image_name }}:${{ inputs.tag }}"
+          format: "sarif" 
+          severity: ${{ inputs.trivy_severity }}
+          exit-code: 0
+
+  update-tag-in-helm-chart:
+    runs-on: ubuntu-latest
+    needs: build-and-push-docker-images
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GHCR_TOKEN }}
+
+    - name: Update tag in Helm chart
+      run: |
+          sed -i '/repository: ${{ env.REGISTRY }}\/${{ github.actor }}\/${{ inputs.image_name }}/{n;s/tag:.*/tag: "${{ inputs.tag }}"/;}' online-boutique/helm/microservices-chart/values.yaml
+
+    - name: login to github
+      run: |
+         git config --global user.email "amadidominic15@gmail.com"
+         git config --global user.name "amadidominic15"
+
+    - name: Commit and push changes
+      run: |
+        git add helm/microservices-chart/values.yaml
+        git commit -m "Update tag in Helm chart for ${{ inputs.image_name }} to ${{ inputs.tag }}"
+        git push

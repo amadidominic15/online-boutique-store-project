@@ -8,8 +8,8 @@ on:
       - 'adservice/**'
       - '.github/workflows/ad.yaml'
 jobs:
-  call-build-push-and-scan-cartservice-image:
-    uses: ./.github/workflows/build-docker-image.yaml
+  call-build-push-and-scan-adservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
       image_name: ad
       dockerfile_path: adservice/Dockerfile
