@@ -85,6 +85,6 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        git add helm/microservices-chart/values.yaml
+        git add ./helm/microservices-chart/values.yaml
         git commit -m "Update tag in Helm chart for ${{ inputs.image_name }} to ${{ inputs.tag }}"
         git push
