@@ -8,8 +8,8 @@ on:
       - 'checkoutservice/**'
       - '.github/workflows/checkout.yaml'
 jobs:
-  call-build-push-and-scan-cartservice-image:
-    uses: ./.github/workflows/build-docker-image.yaml
+  call-build-push-and-scan-checkoutservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
       image_name: checkout
       dockerfile_path: checkoutservice/Dockerfile

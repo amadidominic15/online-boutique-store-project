@@ -10,7 +10,6 @@ locals {
 
   tags = {
     online-boutique = local.name
-    GithubRepo      = "online-boutique-tf-eks-rep"
-    GithubOrg       = "terraform-aws-modules"
+    GithubRepo      = "online-boutique-store-project"
   }
 }

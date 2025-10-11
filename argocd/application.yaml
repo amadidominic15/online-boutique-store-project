@@ -1,0 +1,16 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: online0boutique
+spec:
+  projet: default
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: online-boutique
+  source:
+    repoURL: https://github.com/amadidominic15/online-boutique-store-project
+    path: helm
+    targetRevision: HEAD
+  project: default
+  syncPolicy:
+    automated: {}

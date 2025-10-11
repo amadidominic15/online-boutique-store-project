@@ -8,8 +8,8 @@ on:
       - 'currencyservice/**'
       - '.github/workflows/currency.yaml'
 jobs:
-  call-build-push-and-scan-cartservice-image:
-    uses: ./.github/workflows/build-docker-image.yaml
+  call-build-push-and-scan-currencyservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
       image_name: currency
       dockerfile_path: currencyservice/Dockerfile
