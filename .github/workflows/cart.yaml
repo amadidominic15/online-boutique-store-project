@@ -9,7 +9,7 @@ on:
       - '.github/workflows/cart.yaml'
 jobs:
   call-build-push-and-scan-cartservice-image:
-    uses: ./.github/workflows/build-docker-image.yaml
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
       image_name: cart
       dockerfile_path: cartservice/src/Dockerfile
