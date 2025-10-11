@@ -180,4 +180,4 @@ ingress:
   listenPorts: '[{"HTTP": 80}, {"HTTPS": 443}]'
   sslRedirect: "443"
   groupName: online-boutique
-  host: www.online-boutique.com
+  host: gcp.online-boutique.com
