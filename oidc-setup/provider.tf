@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    region          = var.region
+    region          = "eu-north-1"
     bucket          = "online-boutique-2025"
     key             = "githuboidc/terraform.tfstate"
     use_lockfile    = true
