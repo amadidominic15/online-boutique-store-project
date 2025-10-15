@@ -47,7 +47,6 @@ jobs:
             terraform fmt
             terraform validate
 
-
       - name: Terraform Plan
         run: terraform plan
 
