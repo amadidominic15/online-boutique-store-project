@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - 'oidc-setup/**'
+      - '.github/workflows/deploy-oidc.yaml'
 
 permissions:
   id-token: write
