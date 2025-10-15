@@ -90,7 +90,7 @@ services:
   paymentservice:
     image:
       repository: ghcr.io/amadidominic15/paymentservice
-      tag: "latest"
+      tag: "18522522209"
     port: 50051
     resources:
       requests:
