@@ -1,4 +1,4 @@
-name: BUILD PUSH SCAN AND UPDATE IMAGE FOR AD SERVICE
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR ADSERVICE
 
 on:
   push:
@@ -9,10 +9,10 @@ on:
       - '.github/workflows/ad.yaml'
       - '.github/workflows/reuseable-build-docker-image.yaml'
 jobs:
-  call-build-push-and-scan-adservice-image:
+  call-build-scan-and-push-adservice-image:
     uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
-      image_name: ad
+      image_name: adservice
       dockerfile_path: adservice/Dockerfile
       context_path: adservice
       tag: ${{ github.run_id }}

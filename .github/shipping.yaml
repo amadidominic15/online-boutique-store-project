@@ -1,0 +1,20 @@
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR SHIPPINGSERVICE
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'shippingservice/**'
+      - '.github/workflows/shipping.yaml'
+jobs:
+  call-build-scan-and-push-shippingservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
+    with:
+      image_name: shippingservice
+      dockerfile_path: shippingservice/Dockerfile
+      context_path: shippingservice
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}

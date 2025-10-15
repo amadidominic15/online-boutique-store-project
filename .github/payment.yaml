@@ -1,0 +1,20 @@
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR PAYMENTSERVICE
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'paymentservice/**'
+      - '.github/workflows/payment.yaml'
+jobs:
+  call-build-scan-and-push-paymentservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
+    with:
+      image_name: paymentservice
+      dockerfile_path: paymentservice/Dockerfile
+      context_path: paymentservice
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}

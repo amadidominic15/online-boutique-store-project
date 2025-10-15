@@ -14,10 +14,6 @@ spec:
         app: recommendationservice
     spec:
       serviceAccountName: recommendationservice
-      {{- if .Values.global.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
-      {{- end }}
       terminationGracePeriodSeconds: 5
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}

@@ -1,6 +1,10 @@
 terraform {
-  backend "http" {
-  }
+  backend "s3" {
+    region          = var.region
+    bucket          = "online-boutique-2025"
+    key             = "online-boutique-eks/terraform.tfstate"
+    use_lockfile    = true
+    }
 
   required_providers {
     aws = {
@@ -16,8 +20,4 @@ terraform {
       version = "2.17.0"
     }
   }
-}
-
-provider "aws" {
-  region = local.region
 }

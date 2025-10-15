@@ -1,4 +1,4 @@
-name: BUILD PUSH SCAN AND UPDATE IMAGE FOR CHECKOUT SERVICE
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR CHECKOUTSERVICE
 
 on:
   push:
@@ -8,10 +8,10 @@ on:
       - 'checkoutservice/**'
       - '.github/workflows/checkout.yaml'
 jobs:
-  call-build-push-and-scan-checkoutservice-image:
+  call-build-scan-and-push-checkoutservice-image:
     uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
-      image_name: checkout
+      image_name: checkoutservice
       dockerfile_path: checkoutservice/Dockerfile
       context_path: checkoutservice
       tag: ${{ github.run_id }}

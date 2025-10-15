@@ -14,10 +14,6 @@ spec:
         app: checkoutservice
     spec:
       serviceAccountName: checkoutservice
-      {{- if .Values.global.imagePullSecrets }}
-      imagePullSecrets:
-        {{- toYaml .Values.global.imagePullSecrets | nindent 8 }}
-      {{- end }}
       securityContext:
         {{- toYaml .Values.securityContext | nindent 8 }}
       containers:

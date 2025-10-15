@@ -1,4 +1,4 @@
-name: BUILD PUSH SCAN AND UPDATE IMAGE FOR CURRENCY SERVICE
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR CURRENCYSERVICE
 
 on:
   push:
@@ -8,10 +8,10 @@ on:
       - 'currencyservice/**'
       - '.github/workflows/currency.yaml'
 jobs:
-  call-build-push-and-scan-currencyservice-image:
+  call-build-scan-push-currencyservice-image:
     uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
-      image_name: currency
+      image_name: currencyservice
       dockerfile_path: currencyservice/Dockerfile
       context_path: currencyservice
       tag: ${{ github.run_id }}

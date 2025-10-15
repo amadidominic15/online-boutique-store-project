@@ -1,0 +1,20 @@
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR LOADGENERATOR
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'loadgenerator/**'
+      - '.github/workflows/loadgenerator.yaml'
+jobs:
+  call-build-scan-and-push-loadgenerator-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
+    with:
+      image_name: loadgenerator
+      dockerfile_path: loadgenerator/Dockerfile
+      context_path: loadgenerator
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}

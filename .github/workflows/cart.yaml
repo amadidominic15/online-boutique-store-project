@@ -1,4 +1,4 @@
-name: BUILD PUSH SCAN AND UPDATE IMAGE FOR CART SERVICE
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR CARTSERVICE
 
 on:
   push:
@@ -8,10 +8,10 @@ on:
       - 'cartservice/**'
       - '.github/workflows/cart.yaml'
 jobs:
-  call-build-push-and-scan-cartservice-image:
+  call-build-scan-and-push-cartservice-image:
     uses: ./.github/workflows/reuseable-build-docker-image.yaml
     with:
-      image_name: cart
+      image_name: cartservice
       dockerfile_path: cartservice/src/Dockerfile
       context_path: cartservice/src
       tag: ${{ github.run_id }}

@@ -1,0 +1,20 @@
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR EMAILSERVICE
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'emailservice/**'
+      - '.github/workflows/email.yaml'
+jobs:
+  call-build-scan-and-push-emailservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
+    with:
+      image_name: emailservice
+      dockerfile_path: emailservice/Dockerfile
+      context_path: emailservice
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}

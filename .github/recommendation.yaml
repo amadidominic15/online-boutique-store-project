@@ -1,0 +1,20 @@
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR RECCOMENDATIONSERVICE
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'recommendationservice/**'
+      - '.github/workflows/recommendation.yaml'
+jobs:
+  call-build-scan-and-push-recommendationservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
+    with:
+      image_name: recommendationservice
+      dockerfile_path: recommendationservice/Dockerfile
+      context_path: recommendationservice
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}

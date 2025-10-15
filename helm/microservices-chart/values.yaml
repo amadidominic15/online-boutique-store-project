@@ -62,7 +62,7 @@ services:
         memory: 128Mi
   frontend:
     image:
-      repository: ghcr.io/amadidominic15/frontendservice
+      repository: ghcr.io/amadidominic15/frontend
       tag: "latest"
     port: 8080
     serviceType: ClusterIP
@@ -75,7 +75,7 @@ services:
         memory: 128Mi
   loadgenerator:
     image:
-      repository: ghcr.io/amadidominic15/loadgeneratorservice
+      repository: ghcr.io/amadidominic15/loadgenerator
       tag: "latest"
     replicas: 1
     users: "10"
@@ -162,11 +162,6 @@ dockerregistry:
 ingress:
   enabled: true
   name: online-boutique
-  className: alb
-  scheme: internet-facing
-  targetType: ip
-  certificateArn: "arn:aws:acm:eu-west-2:663264486938:certificate/64e45cde-e6b2-4f02-97cd-25a06a580031"
-  listenPorts: '[{"HTTP": 80}, {"HTTPS": 443}]'
-  sslRedirect: "443"
-  groupName: online-boutique
+  className: nginx
+  ssl-redirect: "true"
   host: www.online-boutique.com

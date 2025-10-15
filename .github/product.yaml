@@ -1,0 +1,20 @@
+name: BUILD SCAN PUSH AND UPDATE IMAGE FOR PRODUCTCATALOGSERVICE
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'productcatalogservice/**'
+      - '.github/workflows/product.yaml'
+jobs:
+  call-build-scan-and-push-productcatalogservice-image:
+    uses: ./.github/workflows/reuseable-build-docker-image.yaml
+    with:
+      image_name: productcatalogservice
+      dockerfile_path: productcatalogservice/Dockerfile
+      context_path: productcatalogservice
+      tag: ${{ github.run_id }}
+      trivy_severity: 'CRITICAL,HIGH'
+    secrets:
+      GHCR_TOKEN: ${{ secrets.TOKEN }}

@@ -1,54 +1,52 @@
-data "tls_certificate" "gitlab_com" {
-  url = "https://gitlab.com"
+
+#############################
+# 1. OIDC Identity Provider
+#############################
+data "tls_certificate" "github" {
+  url = "https://token.actions.githubusercontent.com"
 }
 
-resource "aws_iam_openid_connect_provider" "gitlab_oidc_provider" {
-  url             = "https://gitlab.com"
-  client_id_list  = ["https://gitlab.com"]
-  thumbprint_list = [data.tls_certificate.gitlab_com.certificates[0].sha1_fingerprint]
+resource "aws_iam_openid_connect_provider" "github" {
+  url = "https://token.actions.githubusercontent.com"
+
+  client_id_list = [
+    "sts.amazonaws.com"
+  ]
+
+  thumbprint_list = [
+    data.tls_certificate.github.certificates[0].sha1_fingerprint
+  ]
 }
 
-data "aws_iam_policy_document" "gitlab_oidc_assume_role" {
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRoleWithWebIdentity"]
+#################################
+# 2. IAM Role for GitHub Actions
+#################################
+resource "aws_iam_role" "github_actions_oidc" {
+  name = "github-actions-eks-admin"
 
-    principals {
-      type        = "Federated"
-      identifiers = [aws_iam_openid_connect_provider.gitlab_oidc_provider.arn]
-    }
-
-    condition {
-      test     = "StringEquals"
-      variable = "gitlab.com:aud"
-      values   = ["https://gitlab.com"]
-    }
-
-    condition {
-      test     = "StringLike"
-      variable = "gitlab.com:sub"
-      values   = local.gitlab_project_conditions
-    }
-  }
-
-  statement {
-    effect  = "Allow"
-    actions = ["sts:AssumeRole"]
-
-    principals {
-      type        = "AWS"
-      identifiers = ["arn:aws:iam::<AccountID>:user/acadev"]
-    }
-  }
+  assume_role_policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Principal = {
+          Federated = aws_iam_openid_connect_provider.github.arn
+        }
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringLike = {
+            "token.actions.githubusercontent.com:sub" = "repo:amadidominic15/online-boutique-store-project:*"
+          }
+        }
+      }
+    ]
+  })
 }
 
-# Create the IAM role itself using the trust policy defined above.
-resource "aws_iam_role" "gitlab_ci_role" {
-  name               = "GitLab-OIDC-Role"
-  assume_role_policy = data.aws_iam_policy_document.gitlab_oidc_assume_role.json
-}
-
-resource "aws_iam_role_policy_attachment" "gitlab_admin_access_attach" {
-  role       = aws_iam_role.gitlab_ci_role.name
-  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
+#################################
+# 3. Attach Full EKS Permissions
+#################################
+resource "aws_iam_role_policy_attachment" "eks_full_access" {
+  role       = aws_iam_role.github_actions_oidc.name
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess" # Be cautious in production
 }
