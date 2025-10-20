@@ -46,7 +46,7 @@ jobs:
         working-directory: eksinfra
         run: |
           chmod +x script/apply.sh
-          TF_ACTION=${{ github.event.inputs.tf_action || 'apply' }} ./script/apply.sh
+          TF_ACTION=${{ github.event.inputs.tf_action || 'destroy' }} ./script/apply.sh
 
   application-deployment:
     needs: infrastructure-deployment
