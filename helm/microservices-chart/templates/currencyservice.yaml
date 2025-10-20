@@ -21,7 +21,7 @@ spec:
       - name: server
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 10 }}
-        image: {{ .Values.services.currencyservice.image.repository }}:{{ .Values.services.currencyservice.image.tag | default .Values.global.imageTag }}
+        image: {{ .Values.services.currencyservice.image.repository }}:{{ .Values.services.currencyservice.image.tag }}
         ports:
         - name: grpc
           containerPort: {{ .Values.services.currencyservice.port }}

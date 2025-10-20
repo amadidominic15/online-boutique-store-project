@@ -21,7 +21,7 @@ spec:
       - name: server
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 10 }}
-        image: {{ .Values.services.cartservice.image.repository }}:{{ .Values.services.cartservice.image.tag | default .Values.global.imageTag }}
+        image: {{ .Values.services.cartservice.image.repository }}:{{ .Values.services.cartservice.image.tag }}
         ports:
         - containerPort: {{ .Values.services.cartservice.port }}
         env:

@@ -7,7 +7,6 @@ on:
     paths:
       - 'adservice/**'
       - '.github/workflows/ad.yaml'
-      - '.github/workflows/reuseable-build-docker-image.yaml'
 jobs:
   call-build-scan-and-push-adservice-image:
     uses: ./.github/workflows/reuseable-build-docker-image.yaml

@@ -21,7 +21,7 @@ spec:
       - name: server
         securityContext:
           {{- toYaml .Values.containerSecurityContext | nindent 10 }}
-        image: {{ .Values.services.recommendationservice.image.repository }}:{{ .Values.services.recommendationservice.image.tag | default .Values.global.imageTag }}
+        image: {{ .Values.services.recommendationservice.image.repository }}:{{ .Values.services.recommendationservice.image.tag }}
         ports:
         - containerPort: {{ .Values.services.recommendationservice.port }}
         readinessProbe:

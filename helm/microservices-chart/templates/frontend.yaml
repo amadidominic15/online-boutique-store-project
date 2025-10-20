@@ -22,7 +22,7 @@ spec:
         - name: server
           securityContext:
             {{- toYaml .Values.containerSecurityContext | nindent 12 }}
-          image: {{ .Values.services.frontend.image.repository }}:{{ .Values.services.frontend.image.tag | default .Values.global.imageTag }}
+          image: {{ .Values.services.frontend.image.repository }}:{{ .Values.services.frontend.image.tag }}
           ports:
           - containerPort: {{ .Values.services.frontend.port }}
           readinessProbe:

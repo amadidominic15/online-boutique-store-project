@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: online0boutique
+  name: online-boutique
 spec:
   projet: default
   destination:

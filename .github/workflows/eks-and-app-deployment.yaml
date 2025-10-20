@@ -1,0 +1,66 @@
+name: Deploy EKS AND APP
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'eksinfra/**'
+      - '.github/workflows/eks-and-app-deployment.yaml'
+
+permissions:
+  id-token: write       # required for OIDC
+  contents: read        # to clone the repo
+env:
+  AWS_REGION: us-west-2
+  EKS_CLUSTER_NAME: online-boutique-eks
+  AWS_ROLE_TO_ASSUME: arn:aws:iam::048058681621:role/GH-OIDC-EKS-Deployer-Role
+
+jobs:
+  infrastructure-deployment:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.11.0
+
+      - name: apply or destroy infra   
+        working-directory: eksinfra
+        run: |
+           chmod +x script/apply.sh
+           ./script/apply.sh
+
+  application-deployment:
+    name: Deploy App with ArgoCD (via kubectl)
+    runs-on: ubuntu-latest
+    needs: infrastructure-deployment
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "v1.33.0"
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+
+      

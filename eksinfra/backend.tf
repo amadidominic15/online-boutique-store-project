@@ -1,11 +1,12 @@
 terraform {
   backend "s3" {
-    region          = var.region
-    bucket          = "online-boutique-2025"
-    key             = "online-boutique-eks/terraform.tfstate"
-    use_lockfile    = true
-    }
+    region       = "eu-north-1"
+    bucket       = "online-boutique-2025"
+    key          = "eks/terraform.tfstate"
+    use_lockfile = true
+  }
 
+  required_version = ">= 1.11.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -18,6 +19,10 @@ terraform {
     helm = {
       source  = "hashicorp/helm"
       version = "2.17.0"
+    }
+    tls = {
+      source  = "hashicorp/tls"
+      version = ">= 4.0.0"
     }
   }
 }

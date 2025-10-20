@@ -1,2 +1,5 @@
 .env
 .secrets
+eksinfra/.terraform/**
+eksinfra/.terraform.lock.hcl
+eksinfra/errored.tfstate
