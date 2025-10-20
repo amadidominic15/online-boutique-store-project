@@ -50,7 +50,7 @@ services:
   emailservice:
     image:
       repository: ghcr.io/amadidominic15/emailservice
-      tag: "18522153893"
+      tag: "18648624034"
     port: 8080
     servicePort: 5000
     resources:
