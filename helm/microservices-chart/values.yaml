@@ -126,7 +126,7 @@ services:
   shippingservice:
     image:
       repository: ghcr.io/amadidominic15/shippingservice
-      tag: "latest"
+      tag: "18649655012"
     port: 50051
     resources:
       requests:
