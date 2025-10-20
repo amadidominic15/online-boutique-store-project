@@ -38,6 +38,14 @@ resource "aws_iam_role" "github_actions_oidc" {
             "token.actions.githubusercontent.com:sub" = "repo:amadidominic15/online-boutique-store-project:*"
           }
         }
+      },
+      # Local CLI user access
+      {
+        Effect = "Allow"
+        Principal = {
+          AWS = "arn:aws:iam::048058681621:user/local-admin"
+        }
+        Action = "sts:AssumeRole"
       }
     ]
   })
