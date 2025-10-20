@@ -76,7 +76,7 @@ services:
   loadgenerator:
     image:
       repository: ghcr.io/amadidominic15/loadgenerator
-      tag: "latest"
+      tag: "18648624009"
     replicas: 1
     users: "10"
     rate: "1"
