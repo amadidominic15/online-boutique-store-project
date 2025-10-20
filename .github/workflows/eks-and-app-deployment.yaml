@@ -1,4 +1,4 @@
-name: Deploy EKS AND APP
+name: Deploy or Destroy EKS and App
 
 on:
   push:
@@ -7,20 +7,28 @@ on:
       - 'eksinfra/**'
       - '.github/workflows/eks-and-app-deployment.yaml'
 
+  workflow_dispatch:
+    inputs:
+      tf_action:
+        description: "Terraform action (apply or destroy)"
+        required: false
+        default: "apply"
+
 permissions:
-  id-token: write       # required for OIDC
-  contents: read        # to clone the repo
+  id-token: write
+  contents: read
+
 env:
   AWS_REGION: eu-west-2
   EKS_CLUSTER_NAME: online-boutique-eks
   AWS_ROLE_TO_ASSUME: arn:aws:iam::048058681621:role/github-actions-eks-admin
-  
+
 jobs:
   infrastructure-deployment:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout Repository
         uses: actions/checkout@v3
 
       - name: Configure AWS credentials (OIDC)
@@ -34,8 +42,34 @@ jobs:
         with:
           terraform_version: 1.11.0
 
-      - name: apply or destroy infra   
+      - name: Apply or Destroy Infrastructure
         working-directory: eksinfra
         run: |
-           chmod +x script/apply.sh
-           ./script/apply.sh
+          chmod +x script/apply.sh
+          TF_ACTION=${{ github.event.inputs.tf_action || 'apply' }} ./script/apply.sh
+
+  application-deployment:
+    needs: infrastructure-deployment
+    runs-on: ubuntu-latest
+    if: ${{ github.event.inputs.tf_action != 'destroy' }}
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: "v1.33.0"
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER_NAME }}
+
+      - name: Deploy ArgoCD Application
+        run: kubectl apply -f argocd/application.yaml
