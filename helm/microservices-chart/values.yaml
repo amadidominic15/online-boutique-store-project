@@ -63,7 +63,7 @@ services:
   frontend:
     image:
       repository: ghcr.io/amadidominic15/frontend
-      tag: "18649476939"
+      tag: "18650240305"
     port: 8080
     serviceType: ClusterIP
     resources:
