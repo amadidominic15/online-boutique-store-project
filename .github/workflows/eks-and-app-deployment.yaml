@@ -7,13 +7,6 @@ on:
       - 'eksinfra/**'
       - '.github/workflows/eks-and-app-deployment.yaml'
 
-  workflow_dispatch:
-    inputs:
-      tf_action:
-        description: "Terraform action (apply or destroy)"
-        required: false
-        default: "apply"
-
 permissions:
   id-token: write
   contents: read
@@ -45,13 +38,12 @@ jobs:
       - name: Apply or Destroy Infrastructure
         working-directory: eksinfra
         run: |
-          chmod +x script/apply.sh
-          TF_ACTION=${{ github.event.inputs.tf_action || 'destroy' }} ./script/apply.sh
+          chmod +x script/destroy.sh
+          ./script/destroy.sh
 
   application-deployment:
     needs: infrastructure-deployment
     runs-on: ubuntu-latest
-    if: ${{ github.event.inputs.tf_action != 'destroy' }}
 
     steps:
       - name: Checkout Repository
