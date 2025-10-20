@@ -14,7 +14,7 @@ services:
   cartservice:
     image:
       repository: ghcr.io/amadidominic15/cartservice
-      tag: "18523340626"
+      tag: "18648624020"
     port: 7070
     resources:
       requests:
