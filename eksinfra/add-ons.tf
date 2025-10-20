@@ -124,13 +124,3 @@ module "eks_blueprint_addons" {
   }
 }
 
-resource "null_resource" "delete_ingress" {
-  provisioner "local-exec" {
-    when    = destroy
-    command = <<EOT
-      chmod +x ${path.module}/script/delete-ingresses.sh
-      ${path.module}/script/delete-ingresses.sh
-    EOT
-  }
-  depends_on = [module.eks_blueprint_addons]
-}
