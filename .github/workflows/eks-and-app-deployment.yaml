@@ -11,9 +11,9 @@ permissions:
   id-token: write       # required for OIDC
   contents: read        # to clone the repo
 env:
-  AWS_REGION: us-west-2
+  AWS_REGION: us-north-1
   EKS_CLUSTER_NAME: online-boutique-eks
-  AWS_ROLE_TO_ASSUME: arn:aws:iam::048058681621:oidc-provider/token.actions.githubusercontent.com
+  AWS_ROLE_TO_ASSUME: arn:aws:iam::048058681621:role/github-actions-eks-admin
   
 jobs:
   infrastructure-deployment:
