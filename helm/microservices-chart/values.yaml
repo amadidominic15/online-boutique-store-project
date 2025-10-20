@@ -26,7 +26,7 @@ services:
   checkoutservice:
     image:
       repository: ghcr.io/amadidominic15/checkoutservice
-      tag: "latest"
+      tag: "18648624017"
     port: 5050
     resources:
       requests:
