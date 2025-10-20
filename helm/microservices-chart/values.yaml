@@ -38,7 +38,7 @@ services:
   currencyservice:
     image:
       repository: ghcr.io/amadidominic15/currencyservice
-      tag: "latest"
+      tag: "18648623992"
     port: 7000
     resources:
       requests:
