@@ -102,7 +102,7 @@ services:
   productcatalogservice:
     image:
       repository: ghcr.io/amadidominic15/productcatalogservice
-      tag: "latest"
+      tag: "18649354741"
     port: 3550
     resources:
       requests:
