@@ -22,12 +22,10 @@ This project demonstrates how to deploy the **Online Boutique** microservice app
   - **Authentication**: Github pipelines authenticate with AWS via **OIDC** (no static keys).
   - **Add-ons**: Ingress Nginx Controller, kube-prometheus-stack and Argocd installed with `eks-addons`.
 
-## 🏗 Architecture
+## 🏗 Architecture  
 
-The architecture of the deployment is documented in the [`architecture`](https://github.com/seunayolu/online-boutique/tree/main/architecture) folder.  
-
-### Architecture Diagram
-![Online Boutique Architecture](https://github.com/seunayolu/online-boutique/blob/main/architecture/online-boutique-arch.png?raw=true)
+### Aplication Architecture
+<img width="1778" height="977" alt="Image" src="https://github.com/user-attachments/assets/ae48bc89-794b-4e60-a208-ca55bf4ab345" />
 
 Key components include:
 
@@ -42,10 +40,23 @@ Key components include:
 
 | Repository/Folder | Purpose |
 |----------------------|---------|
+| `.github` | ci/cd workflow. |
+| `adservice` | adservice source code and dockerfile. |
+| `cartservice` | cartservice source code and dockerfile. |
+| `checkoutservice` | checkoutservice source code and dockerfile. |
+| `currencyservice` | currencyservice source code and dockerfile. |
+| `emailservice` | ademailservice source code and dockerfile. |
+| `frontend` | frontend source code and dockerfile. |
+| `loadgenerator` | loadgenerator source code and dockerfile. |
+| `paymentservice` | paymentservice source code and dockerfile. |
+| `productcataloqservice` | productcatalogservice source code and dockerfile. |
+| `recommendationservice` | recommendationservice source code and dockerfile. |
+| `shippingservice` | shippingservice source code and dockerfile. |
 | `oidc-setup` | Terraform code to configure Github OIDC authentication with AWS. |
 | `eksinfra` | Terraform code for deploying EKS, VPC, and add-ons. |
 | `helm` | Helm charts for all 11 microservices. |
 | `argocd` | kubernetes manifest file to deploy app. |
+
 
 ## ⚙️ CI/CD Workflows
 
