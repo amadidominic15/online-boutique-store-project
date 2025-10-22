@@ -1,4 +1,4 @@
-name: Deploy or Destroy EKS and App
+name: INFRASTRUCTURE AND APPLICATION DEPLOYMENT
 
 on:
   push:
@@ -19,16 +19,25 @@ env:
 jobs:
   infrastructure-deployment:
     runs-on: ubuntu-latest
+    outputs:
+      terraform_action: ${{ steps.determine-action.outputs.terraform_action }}
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials (OIDC)
+      - name: Configure AWS Credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@v2
         with:
           role-to-assume: ${{ env.AWS_ROLE_TO_ASSUME }}
           aws-region: ${{ env.AWS_REGION }}
+
+      - name: Determine Terraform Action
+        id: determine-action
+        working-directory: eksinfra
+        run: |
+          chmod +x script/action.sh
+          ./script/action.sh
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -38,12 +47,13 @@ jobs:
       - name: Apply or Destroy Infrastructure
         working-directory: eksinfra
         run: |
-          chmod +x script/destroy.sh
-          ./script/destroy.sh
+          chmod +x script/terraform_action.sh
+          ./script/terraform_action.sh ${{ steps.determine-action.outputs.terraform_action }}
 
   application-deployment:
-    needs: infrastructure-deployment
     runs-on: ubuntu-latest
+    needs: infrastructure-deployment
+    if: needs.infrastructure-deployment.outputs.terraform_action == 'apply'
 
     steps:
       - name: Checkout Repository
