@@ -76,12 +76,12 @@ Each microservice project contains a `.github/workfows/microservice_name.yaml` p
 
 1. **Setup OIDC for Github Actions → AWS**
 
-   * Terraform configuration in [`oidc-setup`](https://github.com/seunayolu/online-boutique/tree/main/oidc-setup).
+   * Terraform configuration in [`oidc-setup`](https://github.com/amadidominic15/online-boutique-store-project/tree/main/oidc-setup).
    * Removes the need for static IAM access keys.
 
 2. **Deploy EKS Infrastructure**
 
-   * Terraform code in [`eksinfra`](https://github.com/seunayolu/online-boutique/tree/main/eksinfra).
+   * Terraform code in [`eksinfra`](https://github.com/amadidominic15/online-boutique-store-project/tree/main/eksinfra).
    * Uses:
 
      * `terraform-aws-eks` module
@@ -104,9 +104,9 @@ Each microservice project contains a `.github/workfows/microservice_name.yaml` p
 This project helps you learn:
 
 1. How to implement **Github polyrepo/monorepo deployments**.
-2. CI/CD repetable workflow for multiple build and push.
+2. CI/CD repeatable workflow for multiple build and push.
 3. Leveraging **ArgoCD** for Kubernetes deployments in CI/CD.
 4. Using **eks-addons** to install Kubernetes tools.
-5. Configuring SSL access via ALB and Load Balancer Controller.
+5. Configuring SSL access via TLS.
 
 
